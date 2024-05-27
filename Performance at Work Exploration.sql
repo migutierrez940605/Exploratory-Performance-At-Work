@@ -1,4 +1,4 @@
------Data Exploration of performance of my work in Compassionate Family Medicine 
+-----Data Exploration of performance of my work in the Family Care Facility 
 -----as Chart Prepper last 7.50 hours (450 minutes).
 
 ---See Data
@@ -18,7 +18,7 @@ FROM performance_work
 SELECT *
 FROM performance_worktest1
 
----Calculate and Add column of hours of notes done
+---Calculate and Add a column of hours of notes done
 SELECT *,ROUND(Time_Notes_Done_Min/60,2) as Time_Notes_Done_Hour 
 FROM performance_worktest1
 
@@ -28,7 +28,7 @@ ADD Time_Notes_Done_Hour float
 UPDATE performance_worktest1
 SET Time_Notes_Done_Hour=ROUND(Time_Notes_Done_Min/60,2)
 
----Calculate and Add column of minutes of other tasks
+---Calculate and Add a column of minutes of other tasks
 SELECT *,450-Time_Notes_Done_Min as Time_Other_Task 
 FROM performance_worktest1
 
@@ -38,7 +38,7 @@ ADD Time_Other_Task float
 UPDATE performance_worktest1
 SET Time_Other_Task=450-Time_Notes_Done_Min 
 
----Calculate and Add column of estimation of average of minutes per each note done in minutes 
+---Calculate and Add a column of estimation of average of minutes per each note done in minutes 
 SELECT *, ROUND(Time_Notes_Done_Min/Notes_Done,2) as Ave_Time_Per_Note_Done
 FROM performance_worktest1
 
@@ -72,7 +72,7 @@ SELECT MAX(Ave_Time_Per_Note_Done) AS 'Maximum of Ave_Time_Per_Note_Done', MIN(A
 FROM performance_worktest1
 
 ---Calculate the average per weeks of Time_Notes_Done_Min, Ave_Time_Per_Note_Done AND how many days are there per week?  
----Also calculate the sum of notes done per weeks 
+---Also calculate the sum of notes done per week 
 SELECT Weeks,ROUND(AVG(Time_Notes_Done_Min),0,1) AS Average_Per_Weeks_Time_Notes_Done_Min,
 ROUND(AVG(Ave_Time_Per_Note_Done),2) AS Average_Ave_Time_Per_Note_Done,
 ROUND(AVG(Time_Other_Task),0,1) AS Average_Time_Other_Task,
@@ -91,7 +91,7 @@ Count(Date) As Amount_of_days_per_Month
 FROM performance_worktest1
 GROUP BY MONTH(Date)
 
-------CREATE and ADD a column in order to segregate my performance at work 
+------CREATE and ADD a column to segregate the performance at work 
 SELECT Date, Ave_Time_Per_Note_Done,
  CASE 
    WHEN Ave_Time_Per_Note_Done BETWEEN 3.98 AND 4.50 THEN 'Efficient'
